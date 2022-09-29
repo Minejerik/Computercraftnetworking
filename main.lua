@@ -154,4 +154,3 @@ local function main(input, protical)
     end
 end
 local messa = "beans"
-main("3," .. messa .. "," .. sha1.hex(messa), "RELAY_UPDATE")
