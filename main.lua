@@ -5,9 +5,9 @@ Currentx = 120
 Currenty = 50
 Maxrange = 350
 
-cc = Stand.getfiletable('data/cc.md')
-rc = Stand.getfiletable('data/rc.md')
-rn = Stand.getfiletable('data/rn.md')
+cc = Stand.getfiletable("data/cc.md")
+rc = Stand.getfiletable("data/rc.md")
+rn = Stand.getfiletable("data/rn.md")
 
 local function cleartable(t)
     for k in pairs(t) do
@@ -28,10 +28,10 @@ end
 local function checkmessagehash(message, hash)
     local temp = sha1.hex(message)
     if temp == hash then
-				print('true hash')
+        print("true hash")
         return true
     else
-				print('false hash')
+        print("false hash")
         return false
     end
 end
@@ -102,7 +102,30 @@ local function findrelay(reciever)
     return rn[possible[temp]]
 end
 
-local function main(input)
+function proticallcheck(protical, message)
+    if protical == "RELAY_CC" then
+        Stand.append("data/cc.md", "\n" .. message)
+        return true
+    else
+        if protical == "RELAY_RC" then
+            Stand.append("data/rc.md", "\n" .. message)
+            return true
+        else
+            if protical == "RELAY_RN" then
+                Stand.append("data/rn.md", "\n" .. message)
+                return true
+            else
+                if protical == "RELAY_UPDATE" then
+                    dofile("updater.lua")
+                else
+                    return false
+                end
+            end
+        end
+    end
+end
+
+local function main(input, protical)
     temp = string.find(input, ",")
     local reciever = tonumber(string.sub(input, 0, temp - 1))
     local message = string.sub(input, temp + 1)
@@ -118,7 +141,9 @@ local function main(input)
     if checkmessagehash(message, hash) == false then
         return
     end
-
+    if proticallcheck(protical, message) == true then
+        return
+    end
     if dis >= Maxrange then
         print("finding relay")
         temp = findrelay(reciever)
@@ -129,4 +154,4 @@ local function main(input)
     end
 end
 local messa = "beans"
-main("3,"..messa.."," .. sha1.hex(messa))
+main("3," .. messa .. "," .. sha1.hex(messa), "RELAY_UPDATE")
