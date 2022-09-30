@@ -154,3 +154,8 @@ local function main(input, protical)
     end
 end
 main('7,beans,'..sha1.hex('beans'),"RELAY_CC")
+
+while true do
+    local i, m, p = os.pullEvent("rednet_message")
+    main(m,p)
+end
