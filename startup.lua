@@ -129,12 +129,16 @@ end
 
 local function main(input, protical)
     temp = string.find(input, ",")
+    print(temp)
     local reciever = tonumber(string.sub(input, 0, temp - 1))
     local message = string.sub(input, temp + 1)
+    print(message)
     temp = string.find(message, ",")
+    print(temp)
     local hash = string.sub(message, temp + 1)
     message = string.sub(input, 0, temp + 1)
     temp = string.find(input, ",")
+    print(temp)
     message = string.sub(message, temp + 1)
     temp = string.find(cc[reciever], ",")
     local tempxc = tonumber(string.sub(cc[reciever], 0, temp - 1))
@@ -157,6 +161,6 @@ local function main(input, protical)
 end
 
 while true do
-    local i, m, p = rednet.receive()
+    local event, sender, message, protocol = os.pullEvent("rednet_message")
     main(m,p)
 end
