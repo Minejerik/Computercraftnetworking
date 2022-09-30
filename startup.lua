@@ -1,8 +1,6 @@
 local possible = {}
 Stand = require("standard")
 local sha1 = require("sha")
-Currentx = 120
-Currenty = 50
 Maxrange = 290
 Currentx,Currenty,temp = gps.locate(5)
 
@@ -11,6 +9,7 @@ if Currentx == nil then
     return
 end
 
+print("Currentx: "..Currentx)
 
 rednet.open('top')
 
@@ -112,6 +111,10 @@ local function findrelay(reciever)
     return rn[possible[temp]]
 end
 
+
+
+
+
 local function proticallcheck(protical, message)
     if protical == "RELAY_CC" then
         Stand.append("data/cc.md", "\n" .. message)
@@ -135,6 +138,10 @@ local function proticallcheck(protical, message)
     end
 end
 
+
+
+
+
 local function main(input, protical)
     temp = string.find(input, ",")
     local reciever = tonumber(string.sub(input, 0, temp - 1))
@@ -144,7 +151,6 @@ local function main(input, protical)
     message = string.sub(input, 0, temp + 1)
     temp = string.find(input, ",")
     message = string.sub(message, temp + 1)
-    Stand.printtable(cc)
     temp = string.find(cc[reciever], ",")
     local tempxc = tonumber(string.sub(cc[reciever], 0, temp - 1))
     local tempyc = tonumber(string.sub(cc[reciever], temp + 1))
@@ -169,3 +175,6 @@ while true do
     local event, sender, message, protocol = os.pullEvent("rednet_message")
     main(message,protocol)
 end
+
+
+--

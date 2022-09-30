@@ -1,7 +1,7 @@
 io.write("Installing relay system")
 shell.run('wget https://raw.githubusercontent.com/Minejerikisme/Computercraftnetworking/main/startup.lua ')
 shell.run('wget https://raw.githubusercontent.com/Minejerikisme/Computercraftnetworking/main/standard.lua ')
-shell.run('wget hhttps://raw.githubusercontent.com/Minejerikisme/Computercraftnetworking/main/updater.lua ')
+shell.run('wget https://raw.githubusercontent.com/Minejerikisme/Computercraftnetworking/main/updater.lua ')
 shell.run('wget https://raw.githubusercontent.com/Minejerikisme/Computercraftnetworking/main/sha.lua ')
 fs.makeDir("data")
 shell.run('cd data')
