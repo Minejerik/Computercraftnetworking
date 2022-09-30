@@ -4,6 +4,14 @@ local sha1 = require("sha")
 Currentx = 120
 Currenty = 50
 Maxrange = 290
+Currentx,Currenty,temp = gps.locate(5)
+
+if Currentx == nil then
+    print("gps not working")
+    return
+end
+
+
 rednet.open('top')
 
 local cc = Stand.getfiletable("data/cc.md")
@@ -129,17 +137,14 @@ end
 
 local function main(input, protical)
     temp = string.find(input, ",")
-    print(temp)
     local reciever = tonumber(string.sub(input, 0, temp - 1))
     local message = string.sub(input, temp + 1)
-    print(message)
     temp = string.find(message, ",")
-    print(temp)
     local hash = string.sub(message, temp + 1)
     message = string.sub(input, 0, temp + 1)
     temp = string.find(input, ",")
-    print(temp)
     message = string.sub(message, temp + 1)
+    Stand.printtable(cc)
     temp = string.find(cc[reciever], ",")
     local tempxc = tonumber(string.sub(cc[reciever], 0, temp - 1))
     local tempyc = tonumber(string.sub(cc[reciever], temp + 1))
@@ -162,5 +167,5 @@ end
 
 while true do
     local event, sender, message, protocol = os.pullEvent("rednet_message")
-    main(m,p)
+    main(message,protocol)
 end
