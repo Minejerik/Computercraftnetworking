@@ -3,11 +3,11 @@ Stand = require("standard")
 local sha1 = require("sha")
 Currentx = 120
 Currenty = 50
-Maxrange = 350
+Maxrange = 290
 
-cc = Stand.getfiletable("data/cc.md")
-rc = Stand.getfiletable("data/rc.md")
-rn = Stand.getfiletable("data/rn.md")
+local cc = Stand.getfiletable("data/cc.md")
+local rc = Stand.getfiletable("data/rc.md")
+local rn = Stand.getfiletable("data/rn.md")
 
 local function cleartable(t)
     for k in pairs(t) do
@@ -51,8 +51,8 @@ local temp
 local temp2
 local tempt = {}
 
-local function sendmessage(message, to)
-    print("sending " .. message .. " to " .. to)
+local function sendmessage(message, to, protical)
+    print("sending " .. message .. " to " .. to.." with protical "..protical)
 end
 
 local function distance(x1, y1, x2, y2)
@@ -147,10 +147,10 @@ local function main(input, protical)
     if dis >= Maxrange then
         print("finding relay")
         temp = findrelay(reciever)
-        sendmessage(input, temp)
+        sendmessage(input, temp,protical)
     else
         print("sending direct")
-        sendmessage(message .. "," .. hash, reciever)
+        sendmessage(message .. "," .. hash, reciever,protical)
     end
 end
-local messa = "beans"
+main('7,beans,'..sha1.hex('beans'),"RELAY_CC")
