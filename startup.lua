@@ -4,6 +4,7 @@ local sha1 = require("sha")
 Currentx = 120
 Currenty = 50
 Maxrange = 290
+rednet.open('top')
 
 local cc = Stand.getfiletable("data/cc.md")
 local rc = Stand.getfiletable("data/rc.md")
@@ -53,6 +54,7 @@ local tempt = {}
 
 local function sendmessage(message, to, protical)
     print("sending " .. message .. " to " .. to.." with protical "..protical)
+    rednet.send(to, message, protical)
 end
 
 local function distance(x1, y1, x2, y2)
@@ -153,7 +155,6 @@ local function main(input, protical)
         sendmessage(message .. "," .. hash, reciever,protical)
     end
 end
-main('7,beans,'..sha1.hex('beans'),"RELAY_CC")
 
 while true do
     local i, m, p = os.pullEvent("rednet_message")
