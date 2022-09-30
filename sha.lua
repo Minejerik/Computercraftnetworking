@@ -50,7 +50,7 @@
 --
 -------------------------------------------------------------------------------
  
-sha1 = {}
+local sha1 = {}
  
 -- set this to false if you don't want to build several 64k sized tables when
 -- loading this file (takes a while but grants a boost of factor 13)

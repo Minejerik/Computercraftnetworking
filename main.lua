@@ -61,8 +61,8 @@ end
 
 local function finddistancetorelay(relaynum)
     temp = string.find(rc[relaynum], ",")
-    tempxc = tonumber(string.sub(rc[relaynum], 0, temp - 1))
-    tempyc = tonumber(string.sub(rc[relaynum], temp + 1))
+    local tempxc = tonumber(string.sub(rc[relaynum], 0, temp - 1))
+    local tempyc = tonumber(string.sub(rc[relaynum], temp + 1))
     if distance(Currentx, Currenty, tempxc, tempyc) <= Maxrange then
         table.insert(tempt, relaynum)
     else
@@ -72,8 +72,8 @@ end
 
 local function finddistancefromrelay(relaynum, reciever)
     temp = string.find(cc[reciever], ",")
-    tempxc = tonumber(string.sub(cc[reciever], 0, temp - 1))
-    tempyc = tonumber(string.sub(cc[reciever], temp + 1))
+    local tempxc = tonumber(string.sub(cc[reciever], 0, temp - 1))
+    local tempyc = tonumber(string.sub(cc[reciever], temp + 1))
     temp = string.find(rc[relaynum], ",")
     local dis =
         distance(
@@ -102,7 +102,7 @@ local function findrelay(reciever)
     return rn[possible[temp]]
 end
 
-function proticallcheck(protical, message)
+local function proticallcheck(protical, message)
     if protical == "RELAY_CC" then
         Stand.append("data/cc.md", "\n" .. message)
         return true
@@ -135,8 +135,8 @@ local function main(input, protical)
     temp = string.find(input, ",")
     message = string.sub(message, temp + 1)
     temp = string.find(cc[reciever], ",")
-    tempxc = tonumber(string.sub(cc[reciever], 0, temp - 1))
-    tempyc = tonumber(string.sub(cc[reciever], temp + 1))
+    local tempxc = tonumber(string.sub(cc[reciever], 0, temp - 1))
+    local tempyc = tonumber(string.sub(cc[reciever], temp + 1))
     local dis = distance(Currentx, Currenty, tempxc, tempyc)
     if checkmessagehash(message, hash) == false then
         return
