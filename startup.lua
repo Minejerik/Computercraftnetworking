@@ -157,6 +157,6 @@ local function main(input, protical)
 end
 
 while true do
-    local i, m, p = os.pullEvent("rednet_message")
+    local i, m, p = rednet.receive()
     main(m,p)
 end
