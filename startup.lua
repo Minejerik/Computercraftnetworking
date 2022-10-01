@@ -115,17 +115,17 @@ end
 
 
 
-local function proticallcheck(protical, message)
+local function proticallcheck(reciever,protical, message)
     if protical == "RELAY_CC" then
-        Stand.append("data/cc.md", "\n" .. message)
+        Stand.setfileline("data/cc.md", message, reciever)
         return true
     else
         if protical == "RELAY_RC" then
-            Stand.append("data/rc.md", "\n" .. message)
+            Stand.setfileline("data/rc.md", message, reciever)
             return true
         else
             if protical == "RELAY_RN" then
-                Stand.append("data/rn.md", "\n" .. message)
+                Stand.setfileline("data/rn.md", message, reciever)
                 return true
             else
                 if protical == "RELAY_UPDATE" then
@@ -151,14 +151,14 @@ local function main(input, protical)
     message = string.sub(input, 0, temp + 1)
     temp = string.find(input, ",")
     message = string.sub(message, temp + 1)
-    temp = string.find(cc[reciever], ",")
+    temp = string.find(cc[reciever], ".")
     local tempxc = tonumber(string.sub(cc[reciever], 0, temp - 1))
     local tempyc = tonumber(string.sub(cc[reciever], temp + 1))
     local dis = distance(Currentx, Currenty, tempxc, tempyc)
     if checkmessagehash(message, hash) == false then
         return
     end
-    if proticallcheck(protical, message) == true then
+    if proticallcheck(reciever,protical, message) == true then
         return
     end
     if dis >= Maxrange then
